@@ -9,3 +9,6 @@ Our goal is to create a RISC-V CPU that prioritizes simplicity while assuming a 
 * Implementation in Chisel.
 * RV32I instruction set support.
 * Execution of programs compiled from the C programming language.
+
+
+TEST
