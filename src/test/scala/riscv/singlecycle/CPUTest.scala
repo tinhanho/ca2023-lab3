@@ -113,3 +113,18 @@ class ByteAccessTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 }
+
+class FindMsbTest extends AnyFlatSpec with ChiselScalatestTester{
+  behavior.of("Single Cycle CPU")
+  it should "store and load a single byte" in {
+    test(new TestTopModule("find_msb.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
+      for (i <- 1 to 500) {
+        c.clock.step(1000)
+        c.io.mem_debug_read_address.poke((i * 4).U) // Avoid timeout
+      }
+      c.io.mem_debug_read_address.poke(4.U)
+      c.clock.step()
+      c.io.mem_debug_read_data.expect(4.U)
+    }
+  }
+}
