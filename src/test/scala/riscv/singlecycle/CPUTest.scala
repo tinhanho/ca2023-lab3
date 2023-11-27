@@ -116,7 +116,7 @@ class ByteAccessTest extends AnyFlatSpec with ChiselScalatestTester {
 
 class FindMsbTest extends AnyFlatSpec with ChiselScalatestTester{
   behavior.of("Single Cycle CPU")
-  it should "store and load a single byte" in {
+  it should "Find Most Significant Bit" in {
     test(new TestTopModule("find_msb.asmbin")).withAnnotations(TestAnnotations.annos) { c =>
       for (i <- 1 to 500) {
         c.clock.step(1000)
@@ -125,6 +125,14 @@ class FindMsbTest extends AnyFlatSpec with ChiselScalatestTester{
       c.io.mem_debug_read_address.poke(4.U)
       c.clock.step()
       c.io.mem_debug_read_data.expect(4.U)
+
+      c.io.mem_debug_read_address.poke(8.U)
+      c.clock.step()
+      c.io.mem_debug_read_data.expect(12.U)
+
+      c.io.mem_debug_read_address.poke(12.U)
+      c.clock.step()
+      c.io.mem_debug_read_data.expect(16.U)
     }
   }
 }
