@@ -27,7 +27,8 @@ BINS = \
 	mmio.asmbin \
 	quicksort.asmbin \
 	sb.asmbin \
-	find_msb.asmbin
+	find_msb.asmbin \
+	find_msb_s.asmbin
 
 # Clear the .DEFAULT_GOAL special variable, so that the following turns
 # to the first target after .DEFAULT_GOAL is not set.
