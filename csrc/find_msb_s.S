@@ -76,13 +76,40 @@ count_leading_zeros:
 	.globl	main
 	.type	main, @function
 main:
-	li	a5,4
-	sw	a5,0(a5)
-	li	a5,12
-	sw	a5,8(zero)
-	li	a4,16
-	sw	a4,0(a5)
+	li	a4,4096
+	li	a5,65536
+	addi	sp,sp,-32
+	addi	a4,a4,257
+	addi	a5,a5,17
+	li	a3,17
+	sw	s0,24(sp)
+	sw	s1,20(sp)
+	sw	s2,16(sp)
+	sw	ra,28(sp)
+	sw	a3,4(sp)
+	sw	a4,8(sp)
+	sw	a5,12(sp)
+	li	s0,4
+	li	s1,31
+	li	s2,16
+.L5:
+	addi	a5,sp,4
+	add	a5,a5,s0
+	lw	a0,-4(a5)
+	li	a1,0
+	call	count_leading_zeros
+	sub	a5,s1,a0
+	bgtu	a0,s1,.L4
+	sw	a5,0(s0)
+.L4:
+	addi	s0,s0,4
+	bne	s0,s2,.L5
+	lw	ra,28(sp)
+	lw	s0,24(sp)
+	lw	s1,20(sp)
+	lw	s2,16(sp)
 	li	a0,0
-	ret
+	addi	sp,sp,32
+	jr	ra
 	.size	main, .-main
 	.ident	"GCC: (xPack GNU RISC-V Embedded GCC x86_64) 13.2.0"
